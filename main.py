@@ -30,7 +30,8 @@ class MyHandler(BaseHTTPRequestHandler):
         if self.path == "/favicon.ico":
             return
         if self.path == "/":
-            self.sendContent("success", "Hello")
+            self.sendContent("success", {"msg":"Hello"})
+            return
 
         print("GET {}".format(self.path))
         self.params=getParams(self.path)

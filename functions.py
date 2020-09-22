@@ -14,11 +14,13 @@ def multiplication(self):
         b=float(b)
         result=a*b
 
-        self.sendContent("success", {"result": result})
-        return
+        reponseData={"a":a,
+                     "b":b,
+                     "result": result}
+
+        self.sendContent("success", reponseData)
     except:
         self.sendContent("error", "Error during computation")
-        return
 
 def addition(self):
     try:
@@ -36,8 +38,10 @@ def addition(self):
         b=float(b)
         result=a+b
 
-        self.sendContent("success", {"result": result})
-        return
+        reponseData={"a":a,
+                     "b":b,
+                     "result": result}
+
+        self.sendContent("success", reponseData)
     except:
         self.sendContent("error", "Error during computation")
-        return
