@@ -14,7 +14,7 @@ def getParams(uri):
 
 class MyHandler(BaseHTTPRequestHandler):
     def log_message(self, format, *args):
-        return
+        return #remove red log messages
 
     def sendContent(self,status, data):
         self.send_response(200)
@@ -36,21 +36,20 @@ class MyHandler(BaseHTTPRequestHandler):
 
         if self.path.startswith('/multiplication'):
             try:
+                p="a"
                 a=params["a"][0]
-            except:
-                self.sendContent("fail", "Parameter a is missing")
-                return
 
-            try:
+                p="b"
                 b=params["b"][0]
             except:
-                self.sendContent("fail", "Parameter b is missing")
+                self.sendContent("fail", "Parameter " + p + " is missing")
                 return
 
             try:
                 a=float(a)
                 b=float(b)
                 result=a*b
+
                 self.sendContent("success", {"result": result})
                 return
             except:
