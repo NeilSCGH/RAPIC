@@ -3,6 +3,7 @@ from lib.server import BaseHTTPRequestHandler
 from urllib.parse import parse_qs
 import json
 import cgi
+from functions import *
 
 def getParams(uri):
     if "?" in uri:
@@ -32,30 +33,12 @@ class MyHandler(BaseHTTPRequestHandler):
             self.sendContent("success", "Hello")
 
         print("GET {}".format(self.path))
-        params=getParams(self.path)
+        self.params=getParams(self.path)
 
-        if self.path.startswith('/multiplication'):
-            try:
-                p="a"
-                a=params["a"][0]
-
-                p="b"
-                b=params["b"][0]
-            except:
-                self.sendContent("fail", "Parameter " + p + " is missing")
-                return
-
-            try:
-                a=float(a)
-                b=float(b)
-                result=a*b
-
-                self.sendContent("success", {"result": result})
-                return
-            except:
-                self.sendContent("error", "Error during computation")
-                return
-
+        if self.path.startswith('/addition'):
+            addition(self)
+        elif self.path.startswith('/multiplication'):
+            multiplication(self)
 
 print("Listening...")
 httpd = socketserver.TCPServer(("", 80), MyHandler)
