@@ -17,8 +17,9 @@ class MyHandler(BaseHTTPRequestHandler):
     def log_message(self, format, *args):
         return #remove red log messages
 
-    def sendContent(self,status, data):
-        self.send_response(200)
+    def sendContent(self, status, data):
+
+        self.send_response(200 if (status == "success") else 400)
         self.send_header('Content-type', 'application/json')
         self.end_headers()
 
@@ -40,6 +41,8 @@ class MyHandler(BaseHTTPRequestHandler):
             addition(self)
         elif self.path.startswith('/multiplication'):
             multiplication(self)
+        elif self.path.startswith('/racine'):
+            racine(self)
 
 print("Listening...")
 httpd = socketserver.TCPServer(("", 80), MyHandler)
